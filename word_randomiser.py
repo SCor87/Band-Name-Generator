@@ -5,19 +5,28 @@
 
 import pickle
 
-def save_file(filename, items):
-    with open(filename, 'wb') as output_file:
-        pickle.dump(items, output_file)
-    print(f'Words have been successfully saved to: {filename}.')
+# Global constant for menu choices
+ADD = 1
+RANDOM = 2
+SHUFFLE = 3
+EXIT = 4
 
-def load_file(filename):
+# Global constant for filename
+FILENAME = 'words_list.dat'
+
+def save_file(items):
+    with open(FILENAME, 'wb') as output_file:
+        pickle.dump(items, output_file)
+    print(f'Words have been successfully saved to: {FILENAME}.')
+
+def load_file():
     end_of_file = False
 
-    with open(filename, 'rb') as input_file:
+    with open(FILENAME, 'rb') as input_file:
 
         while not end_of_file:
             try:
-                with open(filename, 'rb') as input_file:
+                with open(FILENAME, 'rb') as input_file:
                     word_list = pickle.load(input_file)
                     print('File has been loaded successfully.')
                     display_data(word_list)
@@ -40,12 +49,12 @@ def display_menu():
     print('4. Exit')
 
 
-def add_words(filename, items):
+def add_words(items):
     again = 'y'
 
     with open('words_list.dat', 'wb') as output_file:
         while again == 'y':
-            save_file(filename, items)
+            save_file(items)
 
             again = input('\nWould you like to add more words?')
 
@@ -57,20 +66,20 @@ def shuffle_words(items):
     pass
 
 def main():
-    filename = "words_list.dat"
-    items = load_file(filename)
+
+    items = load_file()
 
     while True:
         display_menu()
         choice = input('\nWhat would you like to do?')
-        if choice == '1':
-            add_words(filename, items)
-        elif choice == '2':
+        if choice == ADD:
+            add_words(items)
+        elif choice == RANDOM:
             randomise_words(items)
-        elif choice == '3':
+        elif choice == SHUFFLE:
             shuffle_words(items)
-        elif choice == '4':
-            save_file(filename, items)
+        elif choice == EXIT:
+            save_file(items)
             break
         else:
             print('Invalid choice. Please try again.')
