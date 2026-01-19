@@ -20,23 +20,17 @@ def save_file(items):
     print(f'Words have been successfully saved to: {FILENAME}.')
 
 def load_file():
-    end_of_file = False
+    try:
+        with open(FILENAME, 'rb') as input_file:
+            word_list = pickle.load(input_file)
+            print('File has been loaded successfully.')
+            return word_list
+    except FileNotFoundError:
+        print('File has not been found. A new file will be created.')
+        return []
+    except Exception as err:
+        print(f'An error occurred while loading the file {err}')
 
-    with open(FILENAME, 'rb') as input_file:
-
-        while not end_of_file:
-            try:
-                with open(FILENAME, 'rb') as input_file:
-                    word_list = pickle.load(input_file)
-                    print('File has been loaded successfully.')
-                    display_data(word_list)
-            except FileNotFoundError:
-                print('File has not been found. A new file will be created.')
-                return []
-            except:
-                end_of_file = True
-
-        return word_list
 
 def display_data(items):
     pass
@@ -47,6 +41,15 @@ def display_menu():
     print('2. Randomise Words')
     print('3. Shuffle Words')
     print('4. Exit')
+
+    # Getting user choice
+    choice = int(input('\nWhat would you like to do? '))
+
+    # Validating choice
+    while choice < ADD or choice > EXIT:
+        choice = int(input('Enter a valid choice: '))
+
+    return choice
 
 
 def add_words(items):
@@ -69,9 +72,13 @@ def main():
 
     items = load_file()
 
-    while True:
-        display_menu()
-        choice = input('\nWhat would you like to do?')
+    # Initialising variable for user choice
+    choice = 0
+
+    # Processing menu selection until user wants to quit
+    while choice != EXIT:
+        choice = display_menu()
+
         if choice == ADD:
             add_words(items)
         elif choice == RANDOM:
@@ -81,8 +88,8 @@ def main():
         elif choice == EXIT:
             save_file(items)
             break
-        else:
-            print('Invalid choice. Please try again.')
+        # else:
+        #     print('Invalid choice. Please try again.')
 
 if __name__ == "__main__":
     main()
