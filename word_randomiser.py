@@ -7,23 +7,27 @@ import pickle
 
 # Global constant for menu choices
 ADD = 1
-RANDOM = 2
-SHUFFLE = 3
-EXIT = 4
+REMOVE = 2
+RANDOM = 3
+SHUFFLE = 4
+DISPLAY = 5
+EXIT = 6
 
 # Global constant for filename
 FILENAME = 'words_list.dat'
 
-def save_file(items):
+def save_file(word_list):
     with open(FILENAME, 'wb') as output_file:
-        pickle.dump(items, output_file)
+        pickle.dump(word_list, output_file)
     print(f'Words have been successfully saved to: {FILENAME}.')
+
 
 def load_file():
     try:
         with open(FILENAME, 'rb') as input_file:
             word_list = pickle.load(input_file)
             print('File has been loaded successfully.')
+            # print(type(word_list))
             return word_list
     except FileNotFoundError:
         print('File has not been found. A new file will be created.')
@@ -31,16 +35,23 @@ def load_file():
     except Exception as err:
         print(f'An error occurred while loading the file {err}')
 
+def display_data(word_list):
+    for words in word_list:
+        print(words)
+    # return word_list
+    # pass
 
-def display_data(items):
-    pass
+def remove(word_list):
+    word_list.remove()
 
 def display_menu():
     print('Main Menu')
     print('1. Add Words')
-    print('2. Randomise Words')
-    print('3. Shuffle Words')
-    print('4. Exit')
+    print('2. Remove Words')
+    print('3. Randomise Words')
+    print('4. Shuffle Words')
+    print('5. Display Words')
+    print('6. Exit')
 
     # Getting user choice
     choice = int(input('\nWhat would you like to do? '))
@@ -52,14 +63,18 @@ def display_menu():
     return choice
 
 
-def add_words(items):
+def add_words(word_list):
     again = 'y'
 
-    with open('words_list.dat', 'wb') as output_file:
-        while again == 'y':
-            save_file(items)
+    while again == 'y':
+        words = input("Enter the words you would like to add: ")
+        word_list.append(words)
 
-            again = input('\nWould you like to add more words?')
+        again = input('\nWould you like to add more words? ')
+        if again == 'n':
+            save_file(word_list)
+
+    return word_list
 
 
 def randomise_words(items):
@@ -69,7 +84,8 @@ def shuffle_words(items):
     pass
 
 def main():
-
+    # word_list = []
+    # print(type(word_list))
     items = load_file()
 
     # Initialising variable for user choice
@@ -81,15 +97,21 @@ def main():
 
         if choice == ADD:
             add_words(items)
+        elif choice == REMOVE:
+            remove(items)
         elif choice == RANDOM:
             randomise_words(items)
         elif choice == SHUFFLE:
             shuffle_words(items)
+        elif choice == DISPLAY:
+            display_data(items)
         elif choice == EXIT:
             save_file(items)
             break
         # else:
         #     print('Invalid choice. Please try again.')
+
+    # return word_list
 
 if __name__ == "__main__":
     main()
