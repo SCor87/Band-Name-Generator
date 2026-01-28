@@ -26,8 +26,7 @@ def load_file():
     try:
         with open(FILENAME, 'rb') as input_file:
             word_list = pickle.load(input_file)
-            print('File has been loaded successfully.')
-            # print(type(word_list))
+            print('\nFile has been loaded successfully.\n')
             return word_list
     except FileNotFoundError:
         print('File has not been found. A new file will be created.')
@@ -38,20 +37,20 @@ def load_file():
 def display_data(word_list):
     for words in word_list:
         print(words)
-    # return word_list
-    # pass
 
 def remove(word_list):
     word_list.remove()
 
 def display_menu():
-    print('Main Menu')
+    print('\tMain Menu')
+    print('--------------------')
     print('1. Add Words')
     print('2. Remove Words')
     print('3. Randomise Words')
     print('4. Shuffle Words')
     print('5. Display Words')
     print('6. Exit')
+    print('--------------------')
 
     # Getting user choice
     choice = int(input('\nWhat would you like to do? '))
@@ -66,7 +65,7 @@ def display_menu():
 def add_words(word_list):
     again = 'y'
 
-    while again == 'y':
+    while again == 'y' or again == 'Y':
         words = input("Enter the words you would like to add: ")
         word_list.append(words)
 
