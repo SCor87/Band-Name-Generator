@@ -4,6 +4,7 @@
 # 16/01/26
 
 import pickle
+import random
 
 # Global constant for menu choices
 ADD = 1
@@ -37,6 +38,7 @@ def load_file():
 def display_data(word_list):
     for words in word_list:
         print(words)
+
 
 def remove(word_list):
     word_list.remove()
@@ -76,10 +78,19 @@ def add_words(word_list):
     return word_list
 
 
-def randomise_words(items):
-    pass
+def randomise_words(word_list):
+    # is creating a new list by choosing a random sample from the original
+    # can work for randomising individual words???
+    split = [item.split(' ')[0] for item in word_list]
+    random_words = random.choices(split, k=2) # will repeat values list
+    random_sample = random.sample(split, 10) # will not repeat values from list
+    print(split)
+    print(random_words)
+    print(random_sample)
 
 def shuffle_words(items):
+    # random.shuffle(word_list)
+    # print(word_list)
     pass
 
 def main():
