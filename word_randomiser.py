@@ -83,10 +83,10 @@ def randomise_words(word_list):
     # can work for randomising individual words???
     split = [item.split(' ')[0] for item in word_list]
     random_words = random.choices(split, k=2) # will repeat values list
-    random_sample = random.sample(split, 10) # will not repeat values from list
+    random_sample = random.sample(split, 3) # will not repeat values from list
     print(split)
-    print(random_words)
-    print(random_sample)
+    print(f"Band name is: {random_words[0]} {random_words[1]}")
+    print(f"Band name is: {random_sample[0]} {random_sample[1]} {random_sample[2]}")
 
 def shuffle_words(items):
     # random.shuffle(word_list)
