@@ -41,6 +41,8 @@ def display_data(word_list):
 
 
 def remove(word_list):
+    # pass word to be removed into parentheses as required
+    # still WIP as removal doesn't save
     word_list.remove()
 
 def display_menu():
@@ -82,16 +84,19 @@ def randomise_words(word_list):
     # is creating a new list by choosing a random sample from the original
     # can work for randomising individual words???
     split = [item.split(' ')[0] for item in word_list]
-    random_words = random.choices(split, k=2) # will repeat values list
-    random_sample = random.sample(split, 3) # will not repeat values from list
-    print(split)
-    print(f"Band name is: {random_words[0]} {random_words[1]}")
-    print(f"Band name is: {random_sample[0]} {random_sample[1]} {random_sample[2]}")
+    num_words = int(input('\nHow many words would you like to randomise?: '))
+    random_words = random.choices(split, k = num_words) # will repeat values list
+    random_sample = random.sample(split, num_words) # will not repeat values from list
+    # print(split)
+    print(f"Band name is: {random_words}")
+    print(f"Band name is: {random_sample}")
 
-def shuffle_words(items):
-    # random.shuffle(word_list)
-    # print(word_list)
-    pass
+    return random_sample
+
+def shuffle_words(random_sample):
+    random.shuffle(random_sample)
+    print(random_sample)
+
 
 def main():
     # word_list = []
@@ -110,9 +115,12 @@ def main():
         elif choice == REMOVE:
             remove(items)
         elif choice == RANDOM:
-            randomise_words(items)
+            random_result = randomise_words(items)
         elif choice == SHUFFLE:
-            shuffle_words(items)
+            try:
+                shuffle_words(random_result)
+            except NameError:
+                print('Please randomise words before shuffling.')
         elif choice == DISPLAY:
             display_data(items)
         elif choice == EXIT:
