@@ -82,7 +82,6 @@ def add_words(word_list):
 
 def randomise_words(word_list):
     # is creating a new list by choosing a random sample from the original
-    # can work for randomising individual words???
     split = [item.split(' ')[0] for item in word_list]
     num_words = int(input('\nHow many words would you like to randomise?: '))
     random_words = random.choices(split, k = num_words) # will repeat values list
@@ -93,14 +92,14 @@ def randomise_words(word_list):
 
     return random_sample
 
+# shuffling random_sample word sequence returned from randomise_words()
+# reordering words in list, not returning new list
 def shuffle_words(random_sample):
     random.shuffle(random_sample)
     print(random_sample)
 
 
 def main():
-    # word_list = []
-    # print(type(word_list))
     items = load_file()
 
     # Initialising variable for user choice
@@ -126,10 +125,6 @@ def main():
         elif choice == EXIT:
             save_file(items)
             break
-        # else:
-        #     print('Invalid choice. Please try again.')
-
-    # return word_list
 
 if __name__ == "__main__":
     main()
