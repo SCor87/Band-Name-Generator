@@ -2,6 +2,10 @@
 Band Name Generator
 </h1>
 
+<h2 align="center">
+A Work In Progress
+</h2>
+
 
 <p align="center">
 A menu driven Python program taking in words from a binary file </br> 
