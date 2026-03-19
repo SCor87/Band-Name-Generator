@@ -3,7 +3,7 @@ Band Name Generator
 </h1>
 
 <h2 align="center">
-A Work In Progress
+Work In Progress
 </h2>
 
 
