@@ -43,6 +43,7 @@ def display_data(word_list):
 def remove(word_list):
     # pass word to be removed into parentheses as required
     # still WIP as removal doesn't save
+    # BE CAREFUL, .remove() removes first instance of item in the list
     word_list.remove()
 
 def display_menu():
@@ -57,7 +58,9 @@ def display_menu():
     print('--------------------')
 
     # Getting user choice
-    choice = int(input('\nWhat would you like to do? '))
+    # print('Choose an option from the menu.')
+    choice = int(input('\nWhat would you like to do? \n'
+                       'Continue by choosing an option from the menu: '))
 
     # Validating choice
     while choice < ADD or choice > EXIT:
@@ -73,8 +76,8 @@ def add_words(word_list):
         words = input("Enter the words you would like to add: ")
         word_list.append(words)
 
-        again = input('\nWould you like to add more words? ')
-        if again == 'n':
+        again = input('\nWould you like to add more words? (Enter \'y\' or \'n\')')
+        if again == 'n' or again == 'N':
             save_file(word_list)
 
     return word_list
@@ -83,20 +86,26 @@ def add_words(word_list):
 def randomise_words(word_list):
     # is creating a new list by choosing a random sample from the original
     split = [item.split(' ')[0] for item in word_list]
-    num_words = int(input('\nHow many words would you like to randomise?: '))
+    num_words = int(input('\nYou can randomise words from your saved list here. \n'
+                          'How many of those words would you like to randomise?: '))
     random_words = random.choices(split, k = num_words) # will repeat values list
     random_sample = random.sample(split, num_words) # will not repeat values from list
-    # print(split)
-    print(f"Band name is: {random_words}")
-    print(f"Band name is: {random_sample}")
+    # generator_expr = (str(element) for element in random_sample)
+    separator = ' '
+    # print(f"Your randomly generated band name is: ", separator.join(generator_expr))
+    # print(f"Band name is: ", separator.join(random_words))
+    print(f'Try this as your band name: ', separator.join(random_sample))
 
+    # return random_words
     return random_sample
 
 # shuffling random_sample word sequence returned from randomise_words()
 # reordering words in list, not returning new list
 def shuffle_words(random_sample):
+    separator = ' '
     random.shuffle(random_sample)
-    print(random_sample)
+    shuffled = separator.join(random_sample)
+    print(shuffled)
 
 
 def main():
@@ -119,7 +128,8 @@ def main():
             try:
                 shuffle_words(random_result)
             except NameError:
-                print('Please randomise words before shuffling.')
+                print('Choose option 3 and randomise some words before'
+                      ' shuffling.')
         elif choice == DISPLAY:
             display_data(items)
         elif choice == EXIT:
