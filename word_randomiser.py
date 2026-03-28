@@ -105,7 +105,7 @@ def shuffle_words(random_sample):
     separator = ' '
     random.shuffle(random_sample)
     shuffled = separator.join(random_sample)
-    print(shuffled)
+    print('Or how about this: ', shuffled)
 
 
 def main():
