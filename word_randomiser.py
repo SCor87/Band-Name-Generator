@@ -41,16 +41,14 @@ def display_data(word_list):
 
 
 def remove(word_list):
-    # pass word to be removed into parentheses as required
-    # still WIP as removal doesn't save
     # BE CAREFUL, .remove() removes first instance of item in the list
     x = input("What word, words, or phrase would you like to remove?: ")
     try:
         word_list.remove(x)
         print(f'\n{x} has been removed successfully.\n')
     except ValueError:
-        print(f'\n{x} is not a valid word in the list.\n'
-              f'Please try again.')
+        print(f'\n{x} has not been found in the list.\n'
+              f'Please try again.\n')
 
 def display_menu():
     print('\tMain Menu')
