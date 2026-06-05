@@ -27,7 +27,7 @@ def load_file():
     try:
         with open(FILENAME, 'rb') as input_file:
             word_list = pickle.load(input_file)
-            print('\nFile has been loaded successfully.\n')
+            print('\nFile has been loaded successfully.')
             return word_list
     except FileNotFoundError:
         print('File has not been found. A new file will be created.')
@@ -51,7 +51,7 @@ def remove(word_list):
               f'Please try again.\n')
 
 def display_menu():
-    print('\tMain Menu')
+    print('\n\tMain Menu')
     print('--------------------')
     print('1. Add Words')
     print('2. Remove Words')
@@ -59,11 +59,11 @@ def display_menu():
     print('4. Shuffle Words')
     print('5. Display Words')
     print('6. Exit')
-    print('--------------------')
+    print('--------------------\n')
 
     # Getting user choice
     # print('Choose an option from the menu.')
-    choice = int(input('\nWhat would you like to do? \n'
+    choice = int(input('What would you like to do? \n'
                        'Continue by choosing an option from the menu: '))
 
     # Validating choice
@@ -80,7 +80,7 @@ def add_words(word_list):
         words = input("Enter the words you would like to add: ")
         word_list.append(words)
 
-        again = input('\nWould you like to add more words? (Enter \'y\' or \'n\')')
+        again = input('\nWould you like to add more words? (Enter \'y\' or \'n\'):')
         if again == 'n' or again == 'N':
             save_file(word_list)
 
@@ -91,14 +91,16 @@ def randomise_words(word_list):
     # is creating a new list by choosing a random sample from the original
     split = [item.split(' ')[0] for item in word_list]
     num_words = int(input('\nYou can randomise words from your saved list here. \n'
-                          'How many of those words would you like to randomise?: '))
+                          'How many words would you like to randomise?: '))
     random_words = random.choices(split, k = num_words) # will repeat values list
     random_sample = random.sample(split, num_words) # will not repeat values from list
     # generator_expr = (str(element) for element in random_sample)
     separator = ' '
     # print(f"Your randomly generated band name is: ", separator.join(generator_expr))
     # print(f"Band name is: ", separator.join(random_words))
-    print(f'Try this as your band name: ', separator.join(random_sample))
+    print(f'\nTry this as your band name: {separator.join(random_sample)}\n')
+    print('Try shuffling these words to generate another new band name.\n'
+          'Just go to option 4 from the Main Menu.\n')
 
     # return random_words
     return random_sample
@@ -106,10 +108,11 @@ def randomise_words(word_list):
 # shuffling random_sample word sequence returned from randomise_words()
 # reordering words in list, not returning new list
 def shuffle_words(random_sample):
+    print('\nShuffling randomised words...')
     separator = ' '
     random.shuffle(random_sample)
     shuffled = separator.join(random_sample)
-    print('Or how about this: ', shuffled)
+    print(f'How about this: {shuffled}')
 
 
 def main():
@@ -132,7 +135,7 @@ def main():
             try:
                 shuffle_words(random_result)
             except NameError:
-                print('Choose option 3 and randomise some words before'
+                print('Choose option 3 from the Main Menu and randomise some words before'
                       ' shuffling.')
         elif choice == DISPLAY:
             display_data(items)
